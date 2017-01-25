@@ -25,19 +25,24 @@ public class ItemRecommender {
 		}
 	}
 
-	// non sono certo di aver capito cosa sia la cooccorrenza
-	public int acquistiAssociati(Prodotto a, Prodotto b) {
-		int frequenza = 0;
-
-		for (SessioneLL s : sessioni.listaSessioni) {
-			for (Prodotto p : s.prodotti) {
-				if (p.nome.compareTo(a.nome) == 0
-						|| p.nome.compareTo(b.nome) == 0) {
-					frequenza++;
+		public int acquistiAssociati(Prodotto a, Prodotto b){
+		int n=0;
+		
+		for(SessioneLL sessione: sessioni.listaSessioni){
+			boolean thereIsA = false;
+			boolean thereIsB = false;
+			for(Prodotto p: sessione.prodotti){
+				if(p.nome.compareTo(a.nome)==0){
+					thereIsA = true;
+				}
+				if(p.nome.compareTo(b.nome)==0){
+					thereIsB = true;
 				}
 			}
+			if(thereIsA && thereIsB){
+				n++;
+			}
 		}
-		
-		return frequenza;
+		return n;
 	}
 }
